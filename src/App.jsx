@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import styles from './App.module.css';
+import { createSignal } from "solid-js";
 
-function App() {
-  return (
-    <div class={styles.App}>
-      <header class={styles.header}>
-        <img src={logo} class={styles.logo} alt="logo" />
-        <p>
-          Edit <code>src/App.jsx</code> and save to reload.
-        </p>
-        <a
-          class={styles.link}
-          href="https://github.com/solidjs/solid"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn Solid
-        </a>
-      </header>
-    </div>
-  );
+
+const [todos, setTodos] = createSignal();
+
+
+const App = () => {
+
+    let todoInput = null;
+
+    return (
+        <section class="section" style={{ "background-color": '#2f2e2e' }}>
+            <div class="container">
+                <h1 class="title has-text-centered has-text-warning is-family-monospace">TODO LIST</h1>
+                <div class="field has-addons">
+                    <div class="control is-expanded">
+                        <input
+                            class="input"
+                            ref={todoInput}
+                        />
+                    </div>
+                    <div class="control">
+                        <button
+                            class="button is-dark"
+                        >Add</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
 }
 
 export default App;
