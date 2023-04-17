@@ -16,6 +16,14 @@ const Todo = ({ todo }) => {
         localStorage.setItem('todos', JSON.stringify(todos()));
     };
 
+    const editTodo = text => {
+        setTodos(todos => todos.map(t => {
+            if (t === todo)
+                return { ...t, text }
+            return t;
+        }));
+        localStorage.setItem('todos', JSON.stringify(todos()));
+    };
 
     return (
         <div class="panel-block is-block">
@@ -31,9 +39,9 @@ const Todo = ({ todo }) => {
                     <input
                         type="text"
                         class="input"
-                        readOnly
                         style={`${todo.completed ? 'text-decoration: line-through' : ''}`}
-                        value={todo.text} />
+                        value={todo.text}
+                        onChange={e => editTodo(e.target.value)} />
                 </div>
                 <div class="control">
                     <button class="button is-danger" onClick={() => removeTodo()}>Delete</button>

@@ -25,21 +25,21 @@ const App = () => {
         }
     }
 
-    const completedTodosLength = () => {
-        return todos().filter(todo => todo.completed).length;
+    const completedTodos = () => {
+        return todos().filter(todo => todo.completed);
     };
 
-    const activeTodosLength = () => {
-        return todos().filter(todo => !todo.completed).length;
+    const activeTodos = () => {
+        return todos().filter(todo => !todo.completed);
     };
 
     const showFilteredTodos = () => {
         if (mode() === 'all')
             return todos();
         else if (mode() === 'completed')
-            return todos().filter(todo => todo.completed);
+            return completedTodos();
         else if (mode() === 'active')
-            return todos().filter(todo => !todo.completed);
+            return activeTodos();
     }
 
 
@@ -62,7 +62,7 @@ const App = () => {
                         >Add</button>
                     </div>
                 </div>
-                <Show when={todos().length} fallback={<progress class="progress is-small is-primary" max="100">15%</progress>}>
+                <Show when={todos().length} fallback={<progress class="progress is-small is-success" max="100">15%</progress>}>
                     <div class="panel is-warning">
                         <div class="panel-heading">TODO</div>
                         <For each={showFilteredTodos()}>
@@ -74,13 +74,13 @@ const App = () => {
                                     <button
                                         class="button is-fullwidth"
                                         onClick={() => setMode('active')}
-                                    >Active(<strong class="has-text-danger">{activeTodosLength()}</strong>)</button>
+                                    >Active(<strong class="has-text-danger">{activeTodos().length}</strong>)</button>
                                 </div>
                                 <div class="control is-expanded">
                                     <button
                                         class="button is-fullwidth"
                                         onClick={() => setMode('completed')}
-                                    >Completed(<strong class="has-text-success">{completedTodosLength()}</strong>)</button>
+                                    >Completed(<strong class="has-text-success">{completedTodos().length}</strong>)</button>
                                 </div>
                                 <div class="control is-expanded">
                                     <button
