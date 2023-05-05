@@ -8,6 +8,7 @@ const App = () => {
     const [mode, setMode] = createSignal('all');
 
     onMount(() => {
+        console.log('HELLO')
         todoInput.focus();
     });
 
@@ -33,6 +34,10 @@ const App = () => {
         return todos().filter(todo => !todo.completed);
     };
 
+    const clearCompleted = () => {
+        setTodos(activeTodos());
+    }
+
     const showFilteredTodos = () => {
         if (mode() === 'all')
             return todos();
@@ -57,36 +62,42 @@ const App = () => {
                     </div>
                     <div class="control">
                         <button
-                            class="button is-warning"
+                            class="button is-dark"
                             onClick={e => addTodo(e)}
                         >Add</button>
                     </div>
                 </div>
                 <Show when={todos().length} fallback={<progress class="progress is-small is-success" max="100">15%</progress>}>
-                    <div class="panel is-warning">
+                    <div class="panel is-dark">
                         <div class="panel-heading">TODO</div>
                         <For each={showFilteredTodos()}>
                             {todo => <Todo todo={todo} />}
                         </For>
-                        <div class="panel-block is-justify-content-space-between">
-                            <div class="field is-grouped">
+                        <div class="panel-block">
+                            <div class="field is-grouped" style="width: 100%">
                                 <div class="control is-expanded">
                                     <button
-                                        class="button is-fullwidth"
+                                        class={`button is-fullwidth ${mode() === 'all' ? 'is-dark' : ''}`}
+                                        onClick={() => setMode('all')}
+                                    >Total(<strong>{todos().length}</strong>)</button>
+                                </div>
+                                <div class="control is-expanded">
+                                    <button
+                                        class={`button is-fullwidth ${mode() === 'active' ? 'is-dark' : ''}`}
                                         onClick={() => setMode('active')}
                                     >Active(<strong class="has-text-danger">{activeTodos().length}</strong>)</button>
                                 </div>
                                 <div class="control is-expanded">
                                     <button
-                                        class="button is-fullwidth"
+                                        class={`button is-fullwidth ${mode() === 'completed' ? 'is-dark' : ''}`}
                                         onClick={() => setMode('completed')}
                                     >Completed(<strong class="has-text-success">{completedTodos().length}</strong>)</button>
                                 </div>
                                 <div class="control is-expanded">
                                     <button
-                                        class="button is-fullwidth"
-                                        onClick={() => setMode('all')}
-                                    >Total(<strong>{todos().length}</strong>)</button>
+                                        class="button is-fullwidth is-success"
+                                        onClick={() => clearCompleted()}
+                                    >Clear Completed</button>
                                 </div>
                             </div>
                         </div>
