@@ -5,7 +5,6 @@ const Todo = ({ todo }) => {
 
     createEffect(() => {
         localStorage.setItem('todos', JSON.stringify(todos()));
-        console.log('HELLO')
     });
 
     const removeTodo = () => {
