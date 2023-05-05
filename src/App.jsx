@@ -8,7 +8,6 @@ const App = () => {
     const [mode, setMode] = createSignal('all');
 
     onMount(() => {
-        console.log('HELLO')
         todoInput.focus();
     });
 
