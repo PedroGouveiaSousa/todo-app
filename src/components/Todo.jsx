@@ -1,10 +1,15 @@
 import { todos, setTodos } from "@/App";
+import { createEffect } from "solid-js";
 
 const Todo = ({ todo }) => {
 
+    createEffect(() => {
+        localStorage.setItem('todos', JSON.stringify(todos()));
+        console.log('HELLO')
+    });
+
     const removeTodo = () => {
         setTodos(todos => todos.filter(t => t !== todo));
-        localStorage.setItem('todos', JSON.stringify(todos()));
     };
 
     const setTodoCompleted = () => {
@@ -13,7 +18,6 @@ const Todo = ({ todo }) => {
                 return { ...t, completed: !t.completed }
             return t;
         }));
-        localStorage.setItem('todos', JSON.stringify(todos()));
     };
 
     const editTodo = text => {
@@ -22,7 +26,6 @@ const Todo = ({ todo }) => {
                 return { ...t, text }
             return t;
         }));
-        localStorage.setItem('todos', JSON.stringify(todos()));
     };
 
     return (
