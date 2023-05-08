@@ -23,6 +23,7 @@ const App = () => {
             todoInput.value = '';
             localStorage.setItem('todos', JSON.stringify(todos()));
         }
+        console.log(todos())
     }
 
     const completedTodos = () => {

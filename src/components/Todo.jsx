@@ -9,6 +9,7 @@ const Todo = ({ todo }) => {
 
     const removeTodo = () => {
         setTodos(todos => todos.filter(t => t !== todo));
+        localStorage.setItem('todos', JSON.stringify(todos()));
     };
 
     const setTodoCompleted = () => {
@@ -32,7 +33,7 @@ const Todo = ({ todo }) => {
             <div class="field has-addons">
                 <div class="control">
                     <button
-                        class={`button ${todo.completed ? 'is-success' : 'is-danger'}`}
+                        class={`button ${todo.completed ? 'is-success mdi mdi-check' : 'is-danger mdi mdi-close'}`}
 
                         onClick={() => setTodoCompleted()}
                     ></button>
@@ -46,7 +47,11 @@ const Todo = ({ todo }) => {
                         onChange={e => editTodo(e.target.value)} />
                 </div>
                 <div class="control">
-                    <button class="button is-danger" onClick={() => removeTodo()}>Delete</button>
+                    <button class="button is-danger" onClick={() => removeTodo()}>
+                        <span class="icon is-small">
+                            <i class="mdi mdi-delete-circle-outline"></i>
+                        </span>
+                    </button>
                 </div>
             </div>
         </div>
